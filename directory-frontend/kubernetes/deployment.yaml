@@ -21,7 +21,7 @@ spec:
         app: directory-frontend
     spec:
       containers:
-      - image: 572344594118.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
+      - image: 230604829846.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
         imagePullPolicy: Always
         name: directory-frontend
         ports:

@@ -1,15 +1,16 @@
-cd container
 cd simple-container
 
 docker build -t hello-world .
 
 aws ecr create-repository --repository-name hello-world --image-scanning-configuration scanOnPush=true --region us-east-1
 
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin __num_cuent__.dkr.ecr.us-east-1.amazonaws.com
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 230604829846.dkr.ecr.us-east-1.amazonaws.com
 
-docker tag hello-world:latest __num_cuent__.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
+docker tag hello-world:latest 230604829846.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
 
-docker push __num_cuent__.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
+docker push 230604829846.dkr.ecr.us-east-1.amazonaws.com/hello-world:latest
+
+cd ..
 
 eksctl create cluster -f corp-eks-cluster-copy.yaml
 
@@ -17,10 +18,8 @@ kubectl get all --all-namespaces
 
 kubectl get pods --all-namespaces
 
-cd
-cd container
-cd directory-service
-cd kubernetes
+cd directory-frontend/
+cd kubernetes/
 
 kubectl apply -f deployment.yaml
 
@@ -31,3 +30,7 @@ kubectl get service directory-frontend
 kubectl port-forward service/directory-frontend 5000:80
 
 kubectl exec -it service/directory-frontend -- /bin/bash
+
+kubectl logs service/directory-frontend
+
+aws logs tail --follow /aws/eks/corp-eks-cluster/cluster
