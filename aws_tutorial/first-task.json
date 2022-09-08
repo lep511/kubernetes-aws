@@ -1,0 +1,28 @@
+{
+    "containerDefinitions": [
+        {
+            "name": "hello-from-ecs", 
+            "image": "amazonlinux:2", 
+            "command": [
+                "bash",
+                "-c",
+                "yum -y install cowsay && echo \"hello from my container\" | cowsay "
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/first-task",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            },
+            "memory": 128
+        }   
+    ],
+    "executionRoleArn": "arn:aws:iam::535151865303:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
+    "family": "first-task",
+    "requiresCompatibilities": [
+        "EC2"
+    ]
+
+}
